@@ -91,6 +91,7 @@ def main(_argv):
         # by default VideoCapture returns float instead of int
         width = int(vid.get(cv2.CAP_PROP_FRAME_WIDTH))
         height = int(vid.get(cv2.CAP_PROP_FRAME_HEIGHT))
+	frame_count = int(vid.get(cv2.CAP_PROP_FRAME_COUNT))
         fps = int(vid.get(cv2.CAP_PROP_FPS))
         codec = cv2.VideoWriter_fourcc(*FLAGS.output_format)
         out = cv2.VideoWriter(FLAGS.output, codec, fps, (width, height))
@@ -184,8 +185,9 @@ def main(_argv):
         count = len(names)
         if FLAGS.count:
             cv2.putText(frame, "Objects being tracked: {}".format(count), (5, 35), cv2.FONT_HERSHEY_COMPLEX_SMALL, 2, (0, 255, 0), 2)
-            print("Objects being tracked: {}".format(count))
-        # delete detections that are not in allowed_classes
+            #print("Objects being tracked: {}".format(count))
+        
+	# delete detections that are not in allowed_classes
         bboxes = np.delete(bboxes, deleted_indx, axis=0)
         scores = np.delete(scores, deleted_indx, axis=0)
 
